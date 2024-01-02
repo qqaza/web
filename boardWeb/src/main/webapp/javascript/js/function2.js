@@ -34,17 +34,17 @@ makeHeader(titles, document.getElementById('theader'));
 
 function makeBody(data=[], pos ={}){
    
-    data.forEach(function(datas){
+    data.forEach(function(item){
        
         let tr = document.createElement('tr');
-        if(datas.genger =='Male'){
+        if(item.gender =='Male'){
             tr.setAttribute('style', 'background-color: aqua');
-        }else if(datas.genger == 'Female'){
+        }else if(item.gender == 'Female'){
             tr.setAttribute('style', 'background-color: pink');
         }
-        for(let prop in datas){
+        for(let prop in item){
         let td = document.createElement('td');
-        td.innerText = datas[prop];
+        td.innerText = item[prop];
         tr.appendChild(td);
     }
     
