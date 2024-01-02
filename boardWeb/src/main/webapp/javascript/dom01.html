@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dom01.html</title>
+</head>
+<body >
+    <!-- 표.
+    <table>
+        <thead>
+        <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>전화번호</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>user1</td>
+        <td>홍길동</td>
+        <td>010-1111</td>
+    </tr>
+    </tbody>
+    </table>
+    
+
+    <ul>
+        <li>apple</li>
+        <li>banana</li>
+        <li>cherry</li>
+    </ul>
+-->
+    
+    <script>
+        const fruits = ['apple', 'banana', 'cherry']; //new Attay()
+        
+        let bdy = document.querySelector('body');
+       let ul = document.createElement('ul');
+        //배열 for..of..
+       for(let fruit of fruits){
+        let li1 = document.createElement('li');
+      li1.innerText = fruit;
+      ul.appendChild(li1);
+       }
+      
+    
+      
+       
+      console.log(ul);
+      document.querySelector('body').appendChild(ul);
+
+
+
+        console.log(window);
+       let btn = document.createElement('button'); // Document오브젝트 모델.
+       btn.innerText = 'Btn';
+       btn.addEventListener('click', function(){
+        window.alert('Click 됨.');
+       })
+
+       console.log(btn);
+
+       document.querySelector('body').appendChild(btn);
+ let t1 = document.createElement('table');
+       let t2 = document.createElement('thead');
+       let t3 = document.createElement('tr');
+       const a = ['아이디', '이름', '전화번호'];
+
+      
+      
+    //    let t4 = document.createElement('th');
+    //   t4.innerText = '아이디';
+      t1.appendChild(t2);
+
+     t2.appendChild(t3);
+     for(let saram of a){
+        let t4 = document.createElement('th');
+      t4.innerText = saram;
+        t3.appendChild(t4);
+       }
+       //   t3.appendChild(t4);
+    //   let t41 = document.createElement('th');
+    //   t41.innerText = '이름';
+    //    t3.appendChild(t41);
+    //    let t42 = document.createElement('th');
+    //    t42.innerText = '전화번호';
+    //    t3.appendChild(t42);
+       let t22 = document.createElement('tbody');
+
+       const b = ['user1', '홍길동', '010-1111'];
+       t1.appendChild(t22);
+      let t31 = document.createElement('tr');
+      t22.appendChild(t31);
+      for(let ph of b){
+        let t5 = document.createElement('td');
+      t5.innerText = ph;
+      t31.appendChild(t5);
+      }
+      
+    //   let t51 = document.createElement('td');
+    //   t51.innerText = '홍길동';
+    //   t31.appendChild(t51);
+    //   let t52 = document.createElement('td');
+    //   t52.innerText = '010-1111';
+    //   t31.appendChild(t52);
+      document.querySelector('body').appendChild(t1);
+
+console.log(t1);
+       
+
+
+    </script>
+</body>
+</html>

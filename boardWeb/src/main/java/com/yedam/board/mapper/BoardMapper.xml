@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yedam.board.mapper.BoardMapper">
+	<select id="selectList" resultType="board">
+		select * from board order by 1
+	</select>
+
+	<select id="selectOne" resultType="board" parameterType="int">
+		select * from board where board_no = #{bno}
+	</select>
+
+	<insert id="insertBoard" parameterType="board">
+		insert into board (board_no, title,writer, content, image)
+		values (board_seq.nextval, #{title}, #{writer}, #{content}, #{image})
+	</insert>
+	<update id="updateBoard" parameterType="board">
+		update board set content = #{content} where board_no = #{boardNo}
+	</update>
+	<delete id="deleteBoard" parameterType="int">
+		delete from board where board_no =#{bno}
+	</delete>
+	<update id="updateCnt">
+		update board set click_cnt = click_cnt + 1 where board_no = #{bno}
+	</update>
+
+</mapper>
