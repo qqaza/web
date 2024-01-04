@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>todo/20231229.html</title>
+
+    <style>
+        #show{
+            width: 300px;
+            height: 250px;
+            background-color: aqua;
+        }
+        span{
+            display: inline-block;
+            width: 80px;
+            height: 30px;
+            background-color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+    <input type="text" name="userValue" id="userValue">
+    <button id="delBtn">삭제</button>
+    <div id="show">
+   
+    </div>
+    <script>
+    
+        const words ='Lorem ipsum dolor sit amet consectetur adipisicing elit. Id nobis unde doloremque debitis consequatur expedita nostrum illum animi sint temporibus vel nihil, facilis reiciendis, nulla ducimus veniam commodi deleniti saepe.' 
+        const wordAry = words.split(' ');
+
+        let show = document.querySelector('#show');
+        //for반복문.
+
+
+        wordAry.reduce((acc, word) =>{
+            let spn = document.createElement('span');
+            spn.innerText = item;
+            document.querySelector('#show')
+            acc.appendChild(spn);
+        });
+
+        //delBtn
+        document.getElementById('delBtn').addEventListener('click', function(){
+            let userInput = document.getElementById('userValue').value;
+            const w = document.querySelectorAll('span');
+            w.forEach(function(spn){
+                if(spn.innerText == userInput){
+
+                    spn.remove();
+                }
+            });
+            document.getElementById('userValue').value='';
+        });
+
+
+        
+    </script>
+</body>
+</html>
