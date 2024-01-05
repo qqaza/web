@@ -25,6 +25,9 @@ import com.yedam.member.command.LoginControl;
 import com.yedam.member.command.LoginFormControl;
 import com.yedam.member.command.LogoutControl;
 import com.yedam.member.command.MemberListControl;
+import com.yedam.reply.commmand.AddReplyJson;
+import com.yedam.reply.commmand.DelReplyJson;
+import com.yedam.reply.commmand.ReplyListJson;
 import com.yedam.student.command.StudentInfoControl;
 import com.yedam.student.command.StudentListControl;
 
@@ -67,6 +70,13 @@ public class FrontController extends HttpServlet {
 		//tiles 관련
 		map.put("/studentList.do", new StudentListControl());
 		map.put("/studentInfo.do", new StudentInfoControl());
+		
+		
+		//댓글관련. json포맷의 데이터를 생성해서 반환.
+		map.put("/replyListJson.do", new ReplyListJson());
+		map.put("/delReplyJson.do", new DelReplyJson());
+		map.put("/addReplyJson.do", new AddReplyJson());
+		
 		
 	}
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax.html</title>
+</head>
+<body>
+    <table border="1">
+
+        <thead id="theader" ><tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>이메일</th>
+        </tr></thead>
+        
+        <tbody id="tbody"></tbody>
+    </table>
+    <script>
+        const fields = ['id','first_name','email']
+        const xhtp = new XMLHttpRequest();
+        xhtp.open('get','dataset.xml');        //() : 서버에 요청할 페이지. (요청방식,요청 페이지)
+        xhtp.send();                         //이걸 적어야 요청 시작함.
+        xhtp.onload = function(){
+            let doc = xhtp.responseXML;
+            doc.querySelectorAll('record').forEach(record =>{
+                console.log(record.children[1].innerHTML);
+            })
+        }
+
+
+
+
+        // function makeJson(){            //정보를받아오는 시점에 함수가 실행됨. (onload가 발생하면 함수를 실행.)
+        //     let data = JSON.parse(xhtp.responseText) //response 란곳에 정보가 담긴다.
+        //     console.log(data);      
+        //     let tbody = document.querySelector('#tbody');  
+        //     data.forEach(item => {
+        //         let tr = document.createElement('tr');
+        //         fields.forEach(field =>{                //forEach 반복문.
+        //             let td = document.createElement('td');
+        //             td.innerText = item[field];
+        //             tr.appendChild(td);
+        //         })
+        //         tbody.appendChild(tr);
+        //     });    
+        // }  
+    </script>
+</body>
+</html>
