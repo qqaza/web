@@ -25,9 +25,9 @@ import com.yedam.member.command.LoginControl;
 import com.yedam.member.command.LoginFormControl;
 import com.yedam.member.command.LogoutControl;
 import com.yedam.member.command.MemberListControl;
-import com.yedam.reply.commmand.AddReplyJson;
-import com.yedam.reply.commmand.DelReplyJson;
-import com.yedam.reply.commmand.ReplyListJson;
+import com.yedam.reply.command.AddReplyJson;
+import com.yedam.reply.command.DelReplyJson;
+import com.yedam.reply.command.ReplyListJson;
 import com.yedam.student.command.StudentInfoControl;
 import com.yedam.student.command.StudentListControl;
 

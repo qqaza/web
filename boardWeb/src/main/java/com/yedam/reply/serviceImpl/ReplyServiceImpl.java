@@ -17,32 +17,23 @@ public class ReplyServiceImpl implements ReplyService{
 	ReplyMapper mapper = session.getMapper(ReplyMapper.class);
 	@Override
 	public List<ReplyVO> replyList(int boardNo) {
-		// TODO Auto-generated method stub
 		return mapper.replyList(boardNo);
 	}
 	@Override
 	public boolean removeReply(int replyNo) {
-		// TODO Auto-generated method stub
 		return mapper.deleteReply(replyNo)==1;
 	}
 	@Override
 	public boolean addReply(ReplyVO vo) {
-		// TODO Auto-generated method stub
 		return mapper.insertReply(vo)==1;
 	}
-	@Override
-	public ReplyVO selectReply(int replyNo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	@Override
 	public ReplyVO getReply(int replyNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectReply(replyNo);
 	}
 	@Override
 	public List<ReplyVO> replyListPaging(int boardNo, int page) {
-		// TODO Auto-generated method stub
 		return mapper.replyListPaging(boardNo, page);
 	}
 

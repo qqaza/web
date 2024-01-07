@@ -25,7 +25,6 @@ console.log(ary3);
 //펼침연산자 사용할때, 중복된 속성(name)은 뒤에 적은 중복된 값으로 나오고 다른 속성은 나옴.
 const obj1 = {name: "Hong", age: 20}
 const obj2 = {name: "Hwong", height: 176}
-
 const obj3 = {...obj1, ...obj2}
 console.log(obj3);
 //reduce:  , acc: 이전 순번의 값을 저장(0), curItem: 배열에 있는것(4,5,6) 

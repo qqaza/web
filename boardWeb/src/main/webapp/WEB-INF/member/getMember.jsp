@@ -24,6 +24,6 @@
 				<td>권한</td>
 				<td>${vo.responsibilitity }</td>
 			</tr>
-			
+			</tbody>
 			</table>
 			</form>

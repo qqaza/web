@@ -8,7 +8,7 @@ public interface ReplyService {
 	List<ReplyVO> replyList(int boardNo);
 	List<ReplyVO> replyListPaging(int boardNo,int page);
 	boolean removeReply(int repliNo);
+//	ReplyVO selectReply(int replyNo);
 	boolean addReply(ReplyVO vo);
-	ReplyVO selectReply(int replyNo);
 	ReplyVO getReply(int replyNo);
 }

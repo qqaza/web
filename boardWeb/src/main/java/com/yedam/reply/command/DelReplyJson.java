@@ -1,4 +1,6 @@
-package com.yedam.reply.commmand;
+package com.yedam.reply.command;
+
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,11 +13,9 @@ public class DelReplyJson implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-		// TODO Auto-generated method stub
 		String rno = req.getParameter("rno");
 
 		ReplyService svc = new ReplyServiceImpl();
-
 		try {
 			if (svc.removeReply(Integer.parseInt(rno))) {
 				// {"retCode": "OK"}
@@ -24,8 +24,8 @@ public class DelReplyJson implements Control {
 				// {"retCode": "NG"}
 				resp.getWriter().print("{\"retCode\": \"NG\"}");
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
