@@ -5,43 +5,52 @@
 
 <mapper namespace="com.yedam.reply.mapper.ReplyMapper">
 	<select id="replyList" resultType="reply" parameterType="int">
-		select r.*,m.name name 
+		select
+		r.*,m.name name
 		from reply r
 		join member m
 		on r.replyer = m.id
-		where board_no = ${boardNo} order by 1
+		where board_no = ${boardNo}
+		order by 1
 	</select>
-	
-	<select id="replyListPaging" resultType="reply"  >
-	select b.* from  
-(select ROWNUM rn, a.* from
-(select r.*,m.name name
-from reply r
-join member m
-on r.replyer = m.id
-where board_no = #{boardNo}
-order by 1  ) a ) b
+
+	<select id="replyListPaging" resultType="reply">
+		select b.* from
+		(select ROWNUM rn, a.* from
+		(select r.*,m.name name
+		from reply r
+		join member m
+		on r.replyer = m.id
+		where board_no = #{boardNo}
+		order by 1 
+		) a ) b
 <![CDATA[
 where b.rn >(#{page}-1)*5 and b.rn <= #{page}*5
 ]]>
 	</select>
-	
+
 	<delete id="deleteReply" parameterType="int">
-	delete from reply where reply_no = #{replyNo}
+		delete from reply where reply_no = #{replyNo}
 	</delete>
-	
+
 	<insert id="insertReply" parameterType="reply">
-	<selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
-	select reply_seq.nextval from dual;
-	</selectKey>
-	insert into reply values(#{replyNo},#{boardNo},#{reply},#{replyer},sysdate);
+		<selectKey keyProperty="replyNo" resultType="int"
+			order="BEFORE">
+			select reply_seq.nextval from dual
+		</selectKey>
+		insert into reply
+		values(#{replyNo},#{boardNo},#{reply},#{replyer},sysdate)
 	</insert>
-	
+
 	<select id="selectReply" resultType="reply" parameterType="int">
-	select r.*,m.name name 
+		select r.*,m.name name
 		from reply r
 		join member m
 		on r.replyer = m.id
 		where reply_no = ${replyNo}
+	</select>
+	
+	<select id="selectCount" resultType="int" parameterType="int">
+	select count(*) from reply where board_no = #{boardNo}
 	</select>
 </mapper>

@@ -1,5 +1,6 @@
-package com.yedam.reply.commmand;
+package com.yedam.reply.command;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class AddReplyJson implements Control {
 				resp.getWriter().print(json);
 			}
 
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

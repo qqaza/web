@@ -1,4 +1,4 @@
-package com.yedam.reply.commmand;
+package com.yedam.reply.command;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,6 +20,7 @@ public class ReplyListJson implements Control {
 		resp.setContentType("text/json;charset=utf-8");
 		String bno = req.getParameter("bno");
 		String page = req.getParameter("page");
+		page = page ==null ? "1" : page;
 		
 		ReplyService svc = new ReplyServiceImpl();
 		List<ReplyVO> list = svc.replyListPaging(Integer.parseInt(bno),Integer.parseInt(page));
@@ -36,7 +37,6 @@ public class ReplyListJson implements Control {
 		try {
 			resp.getWriter().print(json);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}	
 		

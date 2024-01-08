@@ -12,5 +12,8 @@ public interface ReplyMapper {
 	int deleteReply(int replyNo);
 	int insertReply(ReplyVO vo);
 	ReplyVO selectReply(int replyNo);
+	//페이지 계산하기 위한 전체 건수 반환.
+	int selectCount(int boardNo);
+
 	
 }

@@ -9,6 +9,7 @@ public interface ReplyService {
 	List<ReplyVO> replyListPaging(int boardNo,int page);
 	boolean removeReply(int repliNo);
 	boolean addReply(ReplyVO vo);
-	ReplyVO selectReply(int replyNo);
+	
 	ReplyVO getReply(int replyNo);
+	int getTotalCnt(int boardNo);//전체 건수계싼.
 }

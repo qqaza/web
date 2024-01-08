@@ -4,6 +4,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<style>
+	.pagination {
+	  display: inline-block;
+	}
+	
+	.pagination a {
+	  color: black;
+	  float: left;
+	  padding: 8px 16px;
+	  text-decoration: none;
+	}
+	
+	.pagination a.active {
+	  background-color: #4CAF50;
+	  color: white;
+	}
+	
+	.pagination a:hover:not(.active) {background-color: #ddd;}
+	</style>
+
 <h3>상세화면</h3>
 
 
@@ -64,13 +84,16 @@ ${logName } vs. ${vo.writer }
 <input type="text" id="content">
 <button id="addReply">등록</button>
 <p />
-<p>댓글목록</p>
-<div id="show">
-	<ul id="list">
 
-		<li><span>글번호1</span>,내용:
+<div id="show">
+	<p style="margin: 0 auto;">[댓글목록]</p>
+	<ul id="list" style="list-style: none;">
 	</ul>
 </div>
+<!-- 페이징 처리 -->
+<div id = "paging" class="pagination">
+</div>
+
 <a href="boardList.do">글 목록으로 가기</a>
 <script src="js/service.js"></script>
 
@@ -80,8 +103,33 @@ function deleteFunc(){
     document.forms.myForm.action = "removeForm.do";
     document.forms.myForm.submit();
 }
-let ul = document.querySelector('#list');
 const bno = '${vo.boardNo}';
+let ul = document.querySelector('#list');
+
+//페이지 클릭하면 페이지의 데이터 보여주도록하기.
+
+function pageList(e){
+	e.preventDefault();
+	let pageInfo = item.getAttribute("href");
+	console.log(pageInfo);
+
+		const pageAjax = new XMLHttpRequest();
+		pageAjax.open('get','replyListJson.do?bno=' + bno + "&page=" + pageInfo);
+		pageAjax.send();
+		pageAjax.onload = function(){
+	
+	let data = JSON.parse(pageAjax.responseText); //json문자열 -> 객체
+	ui.innerHTML = '';
+	data.forEach(reply => {
+	
+		let li = makeLi(reply);
+		ul.appendChild(li);
+	})
+}
+//페이지를 생성하는 함수를 호출.
+pagingList(pageInfo);
+}
+
 //Ajax 호출
 const xhtp = new XMLHttpRequest();
 xhtp.open('get','replyListJson.do?bno=' + bno);
@@ -90,7 +138,7 @@ xhtp.onload = function(){
 	
 	let data = JSON.parse(xhtp.responseText); //json문자열 -> 객체
 	data.forEach(reply => {
-		console.log(reply);
+		
 		//시작.
 		let li = makeLi(reply);
 		
@@ -98,29 +146,79 @@ xhtp.onload = function(){
 	})
 	
 }
+
+//페이지 생성.
+let paging = document.querySelector('#paging');
+pagingList();
+
+function pagingList(page=1){
+	//다음 페이지를 기준으로 페이지 목록 생성.
+	paging.innerHTML='';
+
+	let pagingAjax = new XMLHttpRequest();
+pagingAjax.open('get', 'pagingListJson.do?bno='+ bno + "&page=" + page);
+pagingAjax.send();
+pagingAjax.onload = function(){
+	let result = JSON.parse(pagingAjax.responseText);
+	console.log(result);
+	//이전페이지.
+	if(result.prev){
+		let aTag = document.createElement('a');
+		aTag.href = result.strtPage -1;
+		aTag.innerText = '이전';
+		aTag.addEventListener('click', pageList);
+		paging.appendChild(aTag);
+	}
+	//페이지목록.
+	for(let p = result.startPage; p <= result.lastPage; p++){
+		let aTag = document.createElement('a');
+		if(p == page) {
+			aTag.setAttribute('class', 'active');
+		}
+		aTag.href = p;
+		aTag.innerText = p;
+		aTag.addEventListener('click', pageList);
+		paging.appendChild(aTag);
+	}
+	// 다음페이지.
+	if(result.next){
+		let aTag = document.createElement('a');
+		aTag.href = result.lastPage +1;
+		aTag.innerText = '다음';
+		aTag.addEventListener('click', pageList);
+		paging.appendChild(aTag);
+
+	
+	}
+		//다음 페이지를 기준으로 페이지 목록 생성.
+		paging.innerHTML = '';
+		pagingList(result.lastPage +1);
+}
+}//end paginList
+
+
+
 //등록버튼 클릭 이벤트 생성.
 //document.querySelector('#addReply').addEventListenrt('click',funcyion(){ });
-document.querySelector('#addReply').onclick = function(){
-	let reply = document.querySelector('#content').value;
-	let replyer = '${logid}';
-	
-	const addAjax = new XMLHttpRequest();
-	addAjax.open('get', 'addReplyJson.do?reply='+reply+'&replyer='+replyer+'&bno='+bno );
-	addAjax.send();
-	addAjax.onload = function(){
-		let result = JSON.parse(addAjax.responseText);
-		if(result.retCode == 'OK'){
-			
-			let reply = result.vo;
-			
-			let li = makeLi(reply);
-		
-			ul.appendChild(li); //함수빠지는 부분
-			document.querySelect('#content').value = '';
-		}else if(result.retCode == 'NG'){
-			alert('처리중 에러.');
+document.getElementById('addReply').onclick = function () {
+		let reply = document.querySelector('#content').value;
+		let replyer = '${logId}';
+		const addAjax = new XMLHttpRequest();
+		addAjax.open('get', 'addReplyJson.do?reply='+reply+'&replyer='+replyer+'&bno='+bno);
+		addAjax.send();
+		addAjax.onload = function() {
+			let result = JSON.parse(addAjax.responseText);
+			if(result.retCode == 'OK'){
+				let reply = result.vo;
+				let li = makeLi(reply);
+				ul.appendChild(li);
+				
+				document.querySelector('#content').value = '';
+			} else if(result.retCode == 'NG'){
+				alert('처리중 에러');
+			}
 		}
 	}
-}
 	
+
 </script>
