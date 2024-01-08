@@ -195,7 +195,7 @@ pagingAjax.onload = function(){
 		pagingList(result.lastPage +1);
 }
 }//end paginList
-//왜
+//왜 안되는거지
 
 
 //등록버튼 클릭 이벤트 생성.
