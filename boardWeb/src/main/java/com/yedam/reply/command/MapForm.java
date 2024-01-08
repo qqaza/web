@@ -14,12 +14,10 @@ public class MapForm implements Control {
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
 		try {
 			req.getRequestDispatcher("board/map.tiles").forward(req, resp);
-		} catch (ServletException e) {
+		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		}
 	}
 

@@ -38,12 +38,12 @@ xhtp.onload = function(){
         
         let tr = document.createElement('tr');
         tr.addEventListener('click', function(){
-            location.href = 'map.do? x='datas.lat+'&y='+datas.lng;
-            window.open("map.do? x="+datas.lat+"&y="+datas.lng);
+            //location.href = 'map.do? x='datas.lat+'&y='+datas.lng;
+            window.open("map.do? x="+datas.lat+"&y="+datas.lng+"&name="+datas.org);
         })
         fields.forEach(field => {
             let td = document.createElement('td');
-            td.innerText = datas[field];
+            td.innerHTML = datas[field];
             tr.appendChild(td);
         })
         tbody.appendChild(tr);

@@ -29,7 +29,7 @@
                 </tr>
                 <tr>
                     <td>작성일</td>
-                    <td><fmt:formatDate value="${vo.writerDate }" pattern="yyyy-MM-dd"/></td>
+                    <td><fmt:formatDate value="${vo.writeDate }" pattern="yyyy-MM-dd"/></td>
                     <td>조회수</td>
                     <td>${vo.clickCnt }</td>
                 </tr>

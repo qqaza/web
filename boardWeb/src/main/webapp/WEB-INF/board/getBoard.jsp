@@ -145,14 +145,15 @@ function pagingList(page=1){
 	paging.innerHTML='';
 
 	let pagingAjax = new XMLHttpRequest();
-pagingAjax.open('get', 'pagingListJson.do?bno='+bno+"&page=" + page);
+pagingAjax.open('get', 'pagingListJson.do?bno='+bno+'&page=' + page);
 pagingAjax.send();
 pagingAjax.onload = function(){
 	let result = JSON.parse(pagingAjax.responseText);
+	console.log(result);
 	//이전페이지.
 	if(result.prev){
 		let aTag = document.createElement('a');
-		aTag.href = result.strtPage -1;
+		aTag.href = result.startPage -1;
 		aTag.innerText = '이전';
 		aTag.addEventListener('click', pageList);
 		paging.appendChild(aTag);
@@ -178,9 +179,7 @@ pagingAjax.onload = function(){
 
 	
 	}
-		//다음 페이지를 기준으로 페이지 목록 생성.
-		paging.innerHTML = '';
-		pagingList(result.lastPage +1);
+	
 }
 }
 
@@ -190,19 +189,20 @@ pagingAjax.onload = function(){
 //document.querySelector('#addReply').addEventListenrt('click',funcyion(){ });
 document.getElementById('addReply').onclick = function () {
 		let reply = document.querySelector('#content').value;
-		let replyer = '${logId}';
+		let replyer = '${logid}';
 		const addAjax = new XMLHttpRequest();
 		addAjax.open('get', 'addReplyJson.do?reply='+reply+'&replyer='+replyer+'&bno='+bno);
 		addAjax.send();
 		addAjax.onload = function() {
 			let result = JSON.parse(addAjax.responseText);
 			if(result.retCode == 'OK'){
-				showList(pageInfo);
 				
 				//let reply = result.vo;
 				//let li = makeLi(reply);
 				//ul.appendChild(li);
-				
+				pageInfo = 1;
+				showList(pageInfo);
+				pagingList();
 				document.querySelector('#content').value = '';
 			} else if(result.retCode == 'NG'){
 				alert('처리중 에러');
