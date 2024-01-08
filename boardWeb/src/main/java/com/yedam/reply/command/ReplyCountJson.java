@@ -1,29 +1,28 @@
 package com.yedam.reply.command;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yedam.common.Control;
 import com.yedam.reply.service.ReplyService;
 import com.yedam.reply.serviceImpl.ReplyServiceImpl;
 
-public class DelReplyJson implements Control {
+public class ReplyCountJson implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-		String rno = req.getParameter("rno");
-
 		ReplyService svc = new ReplyServiceImpl();
+		List<HashMap<String, Object>> list = svc.chartDate();
+		Gson gson = new GsonBuilder().create();
+		resp.setContentType("text/json;charset=UTF-8");
 		try {
-			if (svc.removeReply(Integer.parseInt(rno))) {
-				// {"retCode": "OK"}
-				resp.getWriter().print("{\"retCode\": \"OK\"}");
-			} else {
-				// {"retCode": "NG"}
-				resp.getWriter().print("{\"retCode\": \"NG\"}");
-			}
+			resp.getWriter().print(gson.toJson(list));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -7,31 +7,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.board.service.BoardService;
 import com.yedam.board.serviceImpl.BoardServiceMybatis;
+import com.yedam.board.vo.BoardVO;
 import com.yedam.common.Control;
 
 public class RemoveBoardControl implements Control {
 
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse resp) {
-		// param("bno") - 삭제 - 목록.
-		String bno = req.getParameter("bno");
-		BoardService svc = new BoardServiceMybatis();
 		
-		if(svc.remBoard(Integer.parseInt(bno))) {
-			try {
+		String bno = req.getParameter("bno");
+		
+		BoardService svc = new BoardServiceMybatis();
+		boolean rem = svc.remBoard(Integer.parseInt(bno));
+		
+		try {
+			if (rem) {
 				resp.sendRedirect("boardList.do");
-			}catch(IOException e) {
-				e.printStackTrace();
+			} else {
+				resp.sendRedirect("removeForm.do");
 			}
-		}else {
-			try {
-				resp.sendRedirect("getBoard.do?bno=" + bno);
-			}catch(IOException e) {
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+	}
 
-//			
-	}//end of execute
-
-}//end of class
+}

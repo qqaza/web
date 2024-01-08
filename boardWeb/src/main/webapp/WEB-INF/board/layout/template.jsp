@@ -4,29 +4,26 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <meta name="description" content=""/>
-        <meta name="author" content=""/>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
         <title>Simple Sidebar - Start Bootstrap Template</title>
         <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico"/>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet"/>
+        <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <div class="d-flex" id="wrapper">
             <!-- Sidebar menu.jsp-->
-            <tiles:insertAttribute name="menu"/>
-            
-            <!-- Page content wrapper-->
+            <tiles:insertAttribute name="menu" />
+            <!-- Page content wrapper nav.jsp-->
             <div id="page-content-wrapper">
-                <!-- Top navigation nav.jsp-->
-                <tiles:insertAttribute name="nav"/>
-                
+            <tiles:insertAttribute name="nav" />
                 <!-- Page content-->
                 <div class="container-fluid">
-                    <tiles:insertAttribute name="body"/>
+                    <tiles:insertAttribute name="body" />
                 </div>
             </div>
         </div>

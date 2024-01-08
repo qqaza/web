@@ -1,12 +1,19 @@
 package com.yedam.common;
 
-import com.yedam.reply.vo.PageDTO;
+import java.util.HashMap;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.yedam.reply.service.ReplyService;
+import com.yedam.reply.serviceImpl.ReplyServiceImpl;
 
 public class MainExe {
 	public static void main(String[] args) {
-		int total = 70;
-		PageDTO dto = new PageDTO(13, total);
-			
-		System.out.println(dto.toString());
+	ReplyService svc = new ReplyServiceImpl();
+	List<HashMap<String, Object>> list = svc.chartDate();
+	Gson gson = new GsonBuilder().create();
+	System.out.println(gson.toJson(list));
+	
 	}
 }

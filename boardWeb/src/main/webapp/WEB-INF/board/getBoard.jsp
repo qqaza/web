@@ -107,45 +107,34 @@ const bno = '${vo.boardNo}';
 let ul = document.querySelector('#list');
 
 //페이지 클릭하면 페이지의 데이터 보여주도록하기.
-
+let pageInfo = 1;
 function pageList(e){
 	e.preventDefault();
-	let pageInfo = item.getAttribute("href");
-	console.log(pageInfo);
+	pageInfo = this.getAttribute("href");
+	showList(pageInfo);
 
-		const pageAjax = new XMLHttpRequest();
-		pageAjax.open('get','replyListJson.do?bno=' + bno + "&page=" + pageInfo);
-		pageAjax.send();
-		pageAjax.onload = function(){
-	
-	let data = JSON.parse(pageAjax.responseText); //json문자열 -> 객체
-	ui.innerHTML = '';
-	data.forEach(reply => {
-	
-		let li = makeLi(reply);
-		ul.appendChild(li);
-	})
-}
+		
 //페이지를 생성하는 함수를 호출.
 pagingList(pageInfo);
 }
 
 //Ajax 호출
-const xhtp = new XMLHttpRequest();
-xhtp.open('get','replyListJson.do?bno=' + bno);
-xhtp.send();
-xhtp.onload = function(){
-	
-	let data = JSON.parse(xhtp.responseText); //json문자열 -> 객체
-	data.forEach(reply => {
+function showList(page){
+	ul.innerHTML = '';
+	const xhtp = new XMLHttpRequest();
+	xhtp.open('get','replyListJson.do?bno=' + bno+ "&page=" + page);
+	xhtp.send();
+	xhtp.onload = function(){
 		
-		//시작.
-		let li = makeLi(reply);
-		
-		ul.appendChild(li);
-	})
-	
-}
+		let data = JSON.parse(xhtp.responseText); //json문자열 -> 객체
+		data.forEach(reply => {
+			//시작.
+			let li = makeLi(reply);
+			ul.appendChild(li);
+		})
+	}
+}//
+showList(pageInfo);
 
 //페이지 생성.
 let paging = document.querySelector('#paging');
@@ -156,11 +145,10 @@ function pagingList(page=1){
 	paging.innerHTML='';
 
 	let pagingAjax = new XMLHttpRequest();
-pagingAjax.open('get', 'pagingListJson.do?bno='+ bno + "&page=" + page);
+pagingAjax.open('get', 'pagingListJson.do?bno='+bno+"&page=" + page);
 pagingAjax.send();
 pagingAjax.onload = function(){
 	let result = JSON.parse(pagingAjax.responseText);
-	console.log(result);
 	//이전페이지.
 	if(result.prev){
 		let aTag = document.createElement('a');
@@ -194,8 +182,8 @@ pagingAjax.onload = function(){
 		paging.innerHTML = '';
 		pagingList(result.lastPage +1);
 }
-}//end paginList
-//왜 안되는거지
+}
+
 
 
 //등록버튼 클릭 이벤트 생성.
@@ -209,9 +197,11 @@ document.getElementById('addReply').onclick = function () {
 		addAjax.onload = function() {
 			let result = JSON.parse(addAjax.responseText);
 			if(result.retCode == 'OK'){
-				let reply = result.vo;
-				let li = makeLi(reply);
-				ul.appendChild(li);
+				showList(pageInfo);
+				
+				//let reply = result.vo;
+				//let li = makeLi(reply);
+				//ul.appendChild(li);
 				
 				document.querySelector('#content').value = '';
 			} else if(result.retCode == 'NG'){
