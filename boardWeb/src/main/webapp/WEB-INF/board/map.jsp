@@ -14,7 +14,7 @@
 <script>
 let x = '${param.x}'
 let y = '${param.y}'
-let org = '${param.org}'
+	let org = '${param.org}';
 // encodeURI(한글%09%dk%) 한글이 안나올시.
 
 
@@ -38,7 +38,7 @@ var marker = new kakao.maps.Marker({
 marker.setMap(map);
 
 var iwContent = '<div style="padding:5px;">' + org + '<br><a href="https://map.kakao.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">큰지도보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 
-    iwPosition = new kakao.maps.LatLng(33.450701, 126.570667); //인포윈도우 표시 위치입니다
+    iwPosition = new kakao.maps.LatLng(x, y); //인포윈도우 표시 위치입니다
 
 // 인포윈도우를 생성합니다
 var infowindow = new kakao.maps.InfoWindow({

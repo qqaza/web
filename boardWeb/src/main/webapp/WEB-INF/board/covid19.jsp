@@ -39,7 +39,7 @@ xhtp.onload = function(){
         let tr = document.createElement('tr');
         tr.addEventListener('click', function(){
             //location.href = 'map.do? x='datas.lat+'&y='+datas.lng;
-            window.open("map.do? x="+datas.lat+"&y="+datas.lng+"&name="+datas.org);
+            window.open("map.do?x="+datas.lat+"&y="+datas.lng+"&org="+datas.org);
         })
         fields.forEach(field => {
             let td = document.createElement('td');
