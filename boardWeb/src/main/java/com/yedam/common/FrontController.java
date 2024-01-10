@@ -19,10 +19,14 @@ import com.yedam.board.command.ModifyBoardControl;
 import com.yedam.board.command.ModifyFormControl;
 import com.yedam.board.command.RemoveBoardControl;
 import com.yedam.board.command.RemoveFormControl;
+import com.yedam.member.command.GetMemberAddJson;
 import com.yedam.member.command.GetMemberControl;
+import com.yedam.member.command.GetMemberDelJson;
+import com.yedam.member.command.GetMemberListJson;
 import com.yedam.member.command.LoginControl;
 import com.yedam.member.command.LoginFormControl;
 import com.yedam.member.command.LogoutControl;
+import com.yedam.member.command.MemberListAjax;
 import com.yedam.member.command.MemberListControl;
 import com.yedam.reply.command.AddReplyJson;
 import com.yedam.reply.command.ChartForm;
@@ -69,7 +73,13 @@ public class FrontController extends HttpServlet {
 		
 		//관리자.
 		map.put("/memberList.do", new MemberListControl());
+		map.put("/memberListAjax.do", new MemberListAjax());
 		map.put("/getMember.do",  new GetMemberControl());
+		
+		//회원관련 데이터(json).
+		map.put("/memberListJson.do",  new GetMemberListJson());
+		map.put("/memberAddJson.do",  new GetMemberAddJson());
+		map.put("/memberDelJson.do",  new GetMemberDelJson());
 		
 		//tiles 관련
 		map.put("/studentList.do", new StudentListControl());

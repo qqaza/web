@@ -10,5 +10,9 @@ public interface MemberService {
 	public List<MemberVO> memberList();
 	public MemberVO getMember(String id); 
 	
+	//등록 삭제
+	public boolean addMember(MemberVO vo); 
+	public boolean removeMember(String id); 
+	
 	
 }

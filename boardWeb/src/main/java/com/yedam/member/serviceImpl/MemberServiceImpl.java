@@ -30,4 +30,16 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.selectOne(id);
 	}
 
+	@Override
+	public boolean addMember(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return mapper.insertMember(vo) ==1;
+	}
+
+	@Override
+	public boolean removeMember(String id) {
+		// TODO Auto-generated method stub
+		return mapper.deleteMember(id) ==1;
+	}
+
 }

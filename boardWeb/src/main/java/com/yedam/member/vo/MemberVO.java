@@ -8,4 +8,8 @@ public class MemberVO {
 	private String pw;
 	private String name;
 	private String responsibilitity;
+	private String image;
+
+		
+	
 }

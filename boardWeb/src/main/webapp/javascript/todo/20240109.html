@@ -28,15 +28,13 @@
 			})//삭제시키기
 			$('#delSelected').on('click', function(){
 				//tbody만나기 전까지의 부모요소 삭제(회원목록에서 선택 삭제)
-					$('td').find(':checked').parentsUntil('tbody').remove();
+				$('td').find(':checked').parentsUntil('tbody').remove();
 			})
-			//체크박스 전체선택.
-			$('#fullcheck').on('click', function(){
-				$('#list').find('input').attr('checked', 'checked');
-				$('#list').find('input').attr('checked', '');
-			}).change();
-				
-			
+		
+				//체크박스 전체 선택&해제.
+				$('thead input[type="checkbox"]').on('change',function(){
+					$('tbody input[type="checkbox"]').prop("checked", this.checked);
+				})
         })
     </script>
 </head>
@@ -72,7 +70,7 @@
                 <th>회원아이디</th>
                 <th>회원명</th>
                 <th>회원연락처</th>
-                <th><input type="checkbox" id="fullcheck"></th>
+                <th><input type="checkbox"></th>
             </tr>
         </thead>
         <tbody id="list">
@@ -80,13 +78,13 @@
                 <td>user1</td>
                 <td>홍길동</td>
                 <td>010-2342-4564</td>
-                <td><input type="checkbox" id="fullcheck"></td>
+                <td><input type="checkbox"></td>
             </tr>
             <tr>
                 <td>user2</td>
                 <td>김윤경</td>
                 <td>010-2223-9864</td>
-                <td><input type="checkbox" id="fullcheck"></td>
+                <td><input type="checkbox"></td>
             </tr>
         </tbody>
     </table>
